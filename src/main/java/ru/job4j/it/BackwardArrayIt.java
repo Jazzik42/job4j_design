@@ -6,10 +6,11 @@ import java.util.NoSuchElementException;
 public class BackwardArrayIt implements Iterator<Integer> {
     private final int[] data;
     private int position;
-    private int count = 1;
+
 
     public BackwardArrayIt(int[] data) {
         this.data = data;
+        this.position = data.length - 1;
     }
 
     @Override
@@ -19,12 +20,11 @@ public class BackwardArrayIt implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        position = data.length - count++;
-    if (!hasNext()) {
-        throw new NoSuchElementException();
-    } else {
-        return data[position];
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        } else {
+            return data[position--];
+        }
     }
-    }
-    }
+}
 
