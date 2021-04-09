@@ -22,9 +22,8 @@ public class BackwardArrayIt implements Iterator<Integer> {
     public Integer next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
-        } else {
+        }
             return data[position--];
         }
     }
-}
 
