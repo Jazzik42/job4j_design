@@ -1,9 +1,8 @@
-package ru.job4j.Array;
+package ru.job4j.array;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.hamcrest.Matchers;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import static org.hamcrest.Matchers.is;
@@ -76,10 +75,11 @@ public class SimpleArrayTest {
         simpleArray.add(2);
         simpleArray.add(7);
         simpleArray.add(6);
-        assertThat(simpleArray.iterator().next(), is(2));
-        assertThat(simpleArray.iterator().next(), is(7));
-        assertThat(simpleArray.iterator().next(), is(6));
-        assertFalse(simpleArray.iterator().hasNext());
+        Iterator<Integer> iterator = simpleArray.iterator();
+        assertThat(iterator.next(), is(2));
+        assertThat(iterator.next(), is(7));
+        assertThat(iterator.next(), is(6));
+        assertFalse(iterator.hasNext());
     }
 
     @Test(expected = NoSuchElementException.class)
@@ -88,9 +88,10 @@ public class SimpleArrayTest {
         simpleArray.add(2);
         simpleArray.add(7);
         simpleArray.add(6);
-        simpleArray.iterator().next();
-       simpleArray.iterator().next();
-        simpleArray.iterator().next();
-        simpleArray.iterator().next();
+        Iterator<Integer> iterator = simpleArray.iterator();
+        iterator.next();
+        iterator.next();
+        iterator.next();
+        iterator.next();
     }
 }

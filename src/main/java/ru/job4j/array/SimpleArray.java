@@ -1,6 +1,5 @@
-package ru.job4j.Array;
+package ru.job4j.array;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -8,7 +7,7 @@ import java.util.Objects;
 public class SimpleArray<T> implements Iterable<T> {
     private Object[] data;
     private int indexArray = 0;
-    public Iterator<T> iterator = null;
+
 
     public SimpleArray(int capacity) {
         data = new Object[capacity];
@@ -19,7 +18,7 @@ public class SimpleArray<T> implements Iterable<T> {
        }
 
     public void set(int index, T model) {
-        data[Objects.checkIndex(index, data.length)] = model;
+        data[Objects.checkIndex(index, indexArray)] = model;
     }
 
     public void remove(int index) {
@@ -30,7 +29,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
 
     public Object get(int index) {
-    return data[Objects.checkIndex(index, data.length)];
+    return data[Objects.checkIndex(index, indexArray)];
     }
 
 
@@ -43,7 +42,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            return position < data.length;
+            return position < indexArray;
         }
 
         @Override
@@ -54,9 +53,6 @@ public class SimpleArray<T> implements Iterable<T> {
             return  (T) data[position++];
         }
     }
-    if (iterator == null) {
-        iterator = new SimpleArrayIterator();
-    }
-    return iterator;
+    return new SimpleArrayIterator();
     }
 }
