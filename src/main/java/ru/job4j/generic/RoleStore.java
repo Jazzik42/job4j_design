@@ -22,4 +22,9 @@ public class RoleStore implements Store<Role> {
     public Role findById(String id) {
         return mem.findById(id);
     }
+
+    @Override
+    public int indexById(String id) {
+        return mem.indexById(id);
+    }
 }

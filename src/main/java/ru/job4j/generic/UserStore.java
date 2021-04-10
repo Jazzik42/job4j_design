@@ -22,4 +22,9 @@ public class UserStore implements Store<User> {
     public User findById(String id) {
         return mem.findById(id);
     }
+
+    @Override
+    public int indexById(String id) {
+        return mem.indexById(id);
+    }
 }

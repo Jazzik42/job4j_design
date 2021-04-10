@@ -126,4 +126,23 @@ public class StoreTest {
         container.findById("3");
     }
 
+    @Test
+    public void whenRoleIndexById() {
+        RoleStore container = new RoleStore();
+        Role roleOne = new Role("1");
+        Role roleTwo = new Role("2");
+        container.add(roleOne);
+        container.add(roleTwo);
+        assertThat(container.indexById("1"), is(0));
+    }
+
+    @Test
+    public void whenRoleIndexByIdFalse() {
+        RoleStore container = new RoleStore();
+        Role roleOne = new Role("1");
+        Role roleTwo = new Role("2");
+        container.add(roleOne);
+        container.add(roleTwo);
+        assertThat(container.indexById("3"), is(-1));
+    }
 }

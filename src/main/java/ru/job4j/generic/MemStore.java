@@ -14,7 +14,8 @@ public class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public void replace(String id, T model) {
-    mem.set(mem.indexOf(findById(id)), model);
+     int index = this.indexById(id);
+    mem.set(index, model);
     }
 
     @Override
@@ -30,5 +31,16 @@ public class MemStore<T extends Base> implements Store<T> {
             }
         }
         throw new NoSuchElementException();
+    }
+
+    @Override
+    public int indexById(String id) {
+        int i;
+        try {
+            i = mem.indexOf(findById(id));
+        } catch (NoSuchElementException e) {
+           i = -1;
+        }
+        return i;
     }
 }
