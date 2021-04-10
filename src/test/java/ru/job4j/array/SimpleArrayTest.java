@@ -50,6 +50,15 @@ public class SimpleArrayTest {
         assertThat(simpleArray.get(2), is(1));
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void whenRemoveException() {
+        SimpleArray<Integer> simpleArray = new SimpleArray<>(6);
+        simpleArray.add(2);
+        simpleArray.add(7);
+        simpleArray.remove(2);
+    }
+
+
     @Test
     public void whenGet() {
         SimpleArray<Integer> simpleArray = new SimpleArray<>(3);
