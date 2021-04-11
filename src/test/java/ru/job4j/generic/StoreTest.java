@@ -52,7 +52,7 @@ public class StoreTest {
 
     @Test
     public void whenRoleReplaceRoleStore() {
-        RoleStore container = new  RoleStore();
+        RoleStore container = new RoleStore();
         Role roleOne = new Role("1");
         Role roleTwo = new Role("2");
         container.add(roleOne);
@@ -64,7 +64,7 @@ public class StoreTest {
 
     @Test
     public void whenRoleDeleteRoleStore() {
-        RoleStore container = new  RoleStore();
+        RoleStore container = new RoleStore();
         Role roleOne = new Role("1");
         Role roleTwo = new Role("2");
         container.add(roleOne);
@@ -96,14 +96,14 @@ public class StoreTest {
         assertThat(container.findById("2"), is(userTwo));
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void whenUserFindByIdFalseUserStore() {
         UserStore container = new UserStore();
         User userOne = new User("1");
         User userTwo = new User("2");
         container.add(userOne);
         container.add(userTwo);
-        container.findById("3");
+        assertNull(container.findById("3"));
     }
 
     @Test
@@ -116,14 +116,14 @@ public class StoreTest {
         assertThat(container.findById("2"), is(roleTwo));
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void whenRoleFindByIdFalseUserStore() {
         RoleStore container = new RoleStore();
         Role roleOne = new Role("1");
         Role roleTwo = new Role("2");
         container.add(roleOne);
         container.add(roleTwo);
-        container.findById("3");
+        assertNull(container.findById("3"));
     }
 
     @Test

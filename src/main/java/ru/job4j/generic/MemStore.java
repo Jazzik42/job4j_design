@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class MemStore<T extends Base> implements Store<T> {
-    private List<T> mem = new ArrayList<>();
+    private final List<T> mem = new ArrayList<>();
 
     @Override
     public void add(T model) {
