@@ -9,13 +9,13 @@ public class RoleStore implements Store<Role> {
     }
 
     @Override
-    public void replace(String id, Role model) {
-    mem.replace(id, model);
+    public boolean replace(String id, Role model) {
+         return mem.replace(id, model);
     }
 
     @Override
-    public void delete(String id) {
-    mem.delete(id);
+    public boolean delete(String id) {
+        return mem.delete(id);
     }
 
     @Override

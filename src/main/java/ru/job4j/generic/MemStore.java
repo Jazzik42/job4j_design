@@ -9,22 +9,28 @@ public class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public void add(T model) {
-    mem.add(model);
+        mem.add(model);
     }
 
     @Override
-    public void replace(String id, T model) {
+    public boolean replace(String id, T model) {
         int index = this.indexById(id);
         if (index != -1) {
             mem.set(index, model);
+            return true;
         } else {
-            System.out.println("No such element");
+            return false;
         }
     }
 
     @Override
-    public void delete(String id) {
-    mem.remove(findById(id));
+    public boolean delete(String id) {
+        T t = findById(id);
+        if (t != null) {
+            mem.remove(t);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -34,16 +40,17 @@ public class MemStore<T extends Base> implements Store<T> {
                 return mems;
             }
         }
-        throw new NoSuchElementException();
+        return null;
     }
 
     @Override
     public int indexById(String id) {
-        int i;
-        try {
-            i = mem.indexOf(findById(id));
-        } catch (NoSuchElementException e) {
-           i = -1;
+        int i = -1;
+        for (int j = 0; j < mem.size(); j++) {
+            if (mem.get(j).getId().equals(id)) {
+                i = j;
+                break;
+            }
         }
         return i;
     }

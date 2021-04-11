@@ -9,13 +9,13 @@ public class UserStore implements Store<User> {
     }
 
     @Override
-    public void replace(String id, User model) {
-        mem.replace(id, model);
+    public boolean replace(String id, User model) {
+       return mem.replace(id, model);
     }
 
     @Override
-    public void delete(String id) {
-        mem.delete(id);
+    public boolean delete(String id) {
+        return mem.delete(id);
     }
 
     @Override
