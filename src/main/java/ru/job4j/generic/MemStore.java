@@ -14,8 +14,12 @@ public class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public void replace(String id, T model) {
-     int index = this.indexById(id);
-    mem.set(index, model);
+        int index = this.indexById(id);
+        if (index != -1) {
+            mem.set(index, model);
+        } else {
+            System.out.println("No such element");
+        }
     }
 
     @Override
