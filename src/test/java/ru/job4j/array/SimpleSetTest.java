@@ -43,5 +43,13 @@ public class SimpleSetTest {
         assertThat(it.next(), is(3));
         assertFalse(it.hasNext());
     }
+
+    @Test
+    public void whenAddNull() {
+        Set<Integer> set = new SimpleSet<>();
+        assertTrue(set.add(null));
+        assertTrue(set.contains(null));
+        assertFalse(set.add(null));
+    }
 }
 
