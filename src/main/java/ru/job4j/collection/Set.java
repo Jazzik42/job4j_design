@@ -1,4 +1,4 @@
-package ru.job4j.array;
+package ru.job4j.collection;
 
 public interface Set<T> extends Iterable<T> {
     boolean add(T value);

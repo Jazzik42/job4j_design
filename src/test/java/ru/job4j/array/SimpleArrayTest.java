@@ -1,6 +1,7 @@
 package ru.job4j.array;
 
 import org.junit.Test;
+import ru.job4j.collection.SimpleArray;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
