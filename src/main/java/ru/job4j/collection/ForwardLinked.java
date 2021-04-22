@@ -4,15 +4,15 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class ForwardLinked<T> implements Iterable<T> {
-    private Node<T> head;
+    private Node head;
 
     public void add(T element) {
-        Node<T> node = new Node<>(element, null);
+        Node node = new Node(element, null);
         if (head == null) {
             head = node;
             return;
         }
-        Node<T> tail = head;
+        Node tail = head;
         while (tail.next != null) {
             tail = tail.next;
         }
@@ -22,7 +22,7 @@ public class ForwardLinked<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<>() {
-            Node<T> node = head;
+            Node node = head;
 
             @Override
             public boolean hasNext() {
@@ -51,11 +51,11 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public void addFirst(T item) {
-        Node<T> newNode = new Node<>(item, null);
+        Node newNode = new Node(item, null);
         if (head == null) {
             head = newNode;
         } else {
-            Node<T> buff = head;
+            Node buff = head;
             head = newNode;
             head.next = buff;
         }
@@ -65,10 +65,10 @@ public class ForwardLinked<T> implements Iterable<T> {
         if (head == null || head.next == null) {
             return false;
         }
-        Node<T> buffer = null;
-        Node<T> last = head;
+        Node buffer = null;
+        Node last = head;
         while (last != null) {
-            Node<T> tail = last.next;
+            Node tail = last.next;
             last.next = buffer;
             buffer = last;
             last = tail;
@@ -83,11 +83,11 @@ public class ForwardLinked<T> implements Iterable<T> {
         return head == null;
     }
 
-    private class Node<T> {
+    private class Node {
         private T item;
-        private Node<T> next;
+        private Node next;
 
-        public Node(T item, Node<T> next) {
+        public Node(T item, Node next) {
             this.item = item;
             this.next = next;
         }
