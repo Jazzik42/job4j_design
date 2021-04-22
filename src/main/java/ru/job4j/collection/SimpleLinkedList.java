@@ -3,17 +3,17 @@ package ru.job4j.collection;
 import java.util.*;
 
 public class SimpleLinkedList<E> implements List<E> {
-    private Node<E> first;
-    private Node<E> last;
+    private Node first;
+    private Node last;
     private int size = 0;
     private int modCount = 0;
 
-    private class Node<E> {
+    private class Node {
         E item;
-        Node<E> next;
-        Node<E> prev;
+        Node next;
+        Node prev;
 
-        private Node(Node<E> prev, E item, Node<E> next) {
+        private Node(Node prev, E item, Node next) {
             this.item = item;
             this.next = next;
             this.prev = prev;
@@ -23,10 +23,10 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public void add(E value) {
         if (size == 0) {
-            first = new Node<>(null, value, null);
+            first = new Node(null, value, null);
             last = first;
         } else {
-            Node<E> lastItem = new Node<>(last, value, null);
+            Node lastItem = new Node(last, value, null);
             last.next = lastItem;
             last = lastItem;
         }
@@ -37,8 +37,8 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public E get(int index) {
         int i = Objects.checkIndex(index, size);
-        Node<E> buffFirst = first;
-        Node<E> buffLast = last;
+        Node buffFirst = first;
+        Node buffLast = last;
         E item;
         if (i == 0) {
             item = first.item;
@@ -66,7 +66,7 @@ public class SimpleLinkedList<E> implements List<E> {
         class LinkedListIterator implements Iterator<E> {
             private int iteratorPosition = 0;
             private final int itModCount = modCount;
-            private Node<E> itFirst = first;
+            private Node itFirst = first;
 
             @Override
             public boolean hasNext() {
