@@ -23,10 +23,17 @@ public class SimpleTreeTest {
     }
 
     @Test
-    public void whenAddFalse() {
+    public void whenAddParentFalse() {
         Tree<Integer> tree = new SimpleTree<>(1);
         tree.add(1, 2);
         assertFalse(tree.add(4, 3));
+    }
+
+    @Test
+    public void whenAddChildFalse() {
+        Tree<Integer> tree = new SimpleTree<>(1);
+        tree.add(1, 2);
+        assertFalse(tree.add(1, 2));
     }
 
     @Test
