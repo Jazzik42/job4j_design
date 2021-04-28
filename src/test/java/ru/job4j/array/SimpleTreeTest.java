@@ -59,7 +59,7 @@ public class SimpleTreeTest {
         Tree<Integer> tree = new SimpleTree<>(1);
         tree.add(1, 2);
         tree.add(1, 3);
-        tree.add(1, 3);
+        tree.add(1, 6);
         tree.add(3, 4);
         tree.add(3, 5);
         assertFalse(tree.isBinary());

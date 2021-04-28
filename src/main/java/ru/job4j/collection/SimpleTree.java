@@ -3,7 +3,6 @@ package ru.job4j.collection;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Queue;
-import java.util.List;
 import java.util.function.Predicate;
 
 public class SimpleTree<E> implements Tree<E> {
