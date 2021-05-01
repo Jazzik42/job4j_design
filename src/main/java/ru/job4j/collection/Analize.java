@@ -4,25 +4,20 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.Set;
 
 public class Analize {
 
-    @SuppressWarnings("checkstyle:SimplifyBooleanExpression")
     public Info diff(List<User> previous, List<User> current) {
         HashMap<Integer, Long> changeMap = Stream.concat(previous.stream(), current.stream()).distinct()
                 .collect(
                         Collectors.groupingBy(
                                 x -> x.id, HashMap::new, Collectors.counting()));
         long countChanged = changeMap.values().stream().filter(x -> x > 1).count();
-        Map<Object, Object> addedMap = current.stream().map(x -> x.id)
-                .collect(
-                        Collectors.toMap(x -> x, x -> x));
-        for (User user : previous) {
-            addedMap.remove(user.id);
-        }
-        int added = addedMap.size();
         int changed = (int) countChanged;
+        for (User user : previous) {
+            changeMap.remove(user.id);
+        }
+        int added = changeMap.size();
         int deleted = added + previous.size() - current.size();
         return new Info(added, changed, deleted);
     }
