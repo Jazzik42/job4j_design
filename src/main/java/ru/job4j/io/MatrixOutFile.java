@@ -9,7 +9,7 @@ public class MatrixOutFile {
                 for (int j = 1; j < 11; j++) {
                     fl.write((i * j + " ").getBytes());
                 }
-                fl.write("\n".getBytes());
+                fl.write(System.lineSeparator().getBytes());
             }
         } catch (Exception e) {
             e.printStackTrace();
