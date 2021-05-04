@@ -2,6 +2,7 @@ package ru.job4j.io;
 
 import java.io.File;
 import java.sql.SQLOutput;
+import java.util.Objects;
 
 public class Dir {
     public static void main(String[] args) {
@@ -12,7 +13,7 @@ public class Dir {
         if (!file.isDirectory()) {
             throw new IllegalArgumentException(String.format("Not directory %s", file.getAbsoluteFile()));
         }
-        for (File subFile : file.listFiles()) {
+        for (File subFile : Objects.requireNonNull(file.listFiles())) {
             System.out.printf("%s %d%n", subFile.getName(), subFile.length());
         }
     }
