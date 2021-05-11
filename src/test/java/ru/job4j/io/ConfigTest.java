@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.file.Path;
 
 import static org.hamcrest.Matchers.is;
@@ -16,8 +17,8 @@ public class ConfigTest {
 
     @Test
     public void whenValue() {
-        String path = "app.properties";
-        Config config = new Config(Path.of("./app.properties").toString());
+        URL paths = ClassLoader.getSystemResource("app.properties");
+        Config config = new Config(paths.getPath());
         config.load();
         assertThat(config.value("hibernate.connection.url"),
                 is("jdbc:postgresql://127.0.0.1:5432/trackstudio"));
@@ -41,8 +42,8 @@ public class ConfigTest {
 
     @Test
     public void whenPairWithoutComment() {
-        Path.of("./src/main/resources/config");
-        Config config = new Config(Path.of("./src/main/resources/config").toString());
+        URL paths = ClassLoader.getSystemResource("config");
+        Config config = new Config(paths.getPath());
         config.load();
         assertThat(config.value("name"), is("Petr Arsentev"));
     }
