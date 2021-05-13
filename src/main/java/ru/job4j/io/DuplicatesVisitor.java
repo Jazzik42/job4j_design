@@ -16,7 +16,6 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     Map<FileProperty, Long> map = new HashMap<>();
 
     @Override
-
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         FileProperty fileProperty = new FileProperty(
                 Files.size(file), file.toFile().getName());

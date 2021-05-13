@@ -45,7 +45,7 @@ public class DuplicatesVisitorTest {
 
     @After
     public void cleanUpStreams() {
-        System.setOut(null);
+        System.setOut(System.out);
     }
 
     @Test
@@ -69,12 +69,11 @@ public class DuplicatesVisitorTest {
         DuplicatesVisitor dupVis = new DuplicatesVisitor();
         Files.walkFileTree(dir1.toPath(), dupVis);
         assertThat(output.toString(), is(
-                "Map contains a duplicate file:" +
-                        file2.getAbsolutePath()
-                        + System.lineSeparator() +
-                        "Map contains a duplicate file:" +
-                        file3.getAbsolutePath() + System.lineSeparator()
-
+                "Map contains a duplicate file:"
+                        + file2.getAbsolutePath()
+                        + System.lineSeparator()
+                        + "Map contains a duplicate file:"
+                        + file3.getAbsolutePath() + System.lineSeparator()
         ));
     }
 
