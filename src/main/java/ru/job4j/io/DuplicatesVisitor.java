@@ -6,23 +6,26 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
-    Map<FileProperty, Long> map = new HashMap<>();
+    private Map<FileProperty, Long> map = new HashMap<>();
+    private List<String> outList = new ArrayList<>();
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         FileProperty fileProperty = new FileProperty(
                 Files.size(file), file.toFile().getName());
         if (map.putIfAbsent(fileProperty, 1L) != null) {
-            System.out.println("Map contains a duplicate file:" + file);
+            outList.add(file.toString());
         }
         return CONTINUE;
+    }
+
+    public List<String> getList() {
+        return outList;
     }
 
     private class FileProperty {

@@ -8,6 +8,7 @@ import org.junit.rules.TemporaryFolder;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
@@ -21,7 +22,7 @@ public class DuplicatesVisitorTest {
     File file2;
     File file3;
     File file4;
-    private ByteArrayOutputStream output = new ByteArrayOutputStream();
+
     @Rule
     public TemporaryFolder tF = new TemporaryFolder();
 
@@ -36,16 +37,6 @@ public class DuplicatesVisitorTest {
         file2 = tF.newFile("dir1/x/a/ABC.txt");
         file3 = tF.newFile("dir1/y/ABC.txt");
         file4 = tF.newFile("dir1/z/c/ABC.txt");
-    }
-
-    @Before
-    public void setUpStreams() {
-        System.setOut(new PrintStream(output));
-    }
-
-    @After
-    public void cleanUpStreams() {
-        System.setOut(System.out);
     }
 
     @Test
@@ -68,12 +59,8 @@ public class DuplicatesVisitorTest {
         }
         DuplicatesVisitor dupVis = new DuplicatesVisitor();
         Files.walkFileTree(dir1.toPath(), dupVis);
-        assertThat(output.toString(), is(
-                "Map contains a duplicate file:"
-                        + file2.getAbsolutePath()
-                        + System.lineSeparator()
-                        + "Map contains a duplicate file:"
-                        + file3.getAbsolutePath() + System.lineSeparator()
+        assertThat(dupVis.getList(), is(List.of(file2.getAbsolutePath(),
+                file3.getAbsolutePath())
         ));
     }
 
@@ -97,6 +84,6 @@ public class DuplicatesVisitorTest {
         }
         DuplicatesVisitor dupVis = new DuplicatesVisitor();
         Files.walkFileTree(dir1.toPath(), dupVis);
-        assertThat(output.toString(), is(""));
+        assertThat(dupVis.getList(), is(List.of()));
     }
 }
