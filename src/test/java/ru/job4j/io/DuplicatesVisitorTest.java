@@ -10,6 +10,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.List;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -59,9 +60,9 @@ public class DuplicatesVisitorTest {
         }
         DuplicatesVisitor dupVis = new DuplicatesVisitor();
         Files.walkFileTree(dir1.toPath(), dupVis);
-        assertThat(dupVis.getList(), is(List.of(file2.getAbsolutePath(),
+        assertThat(dupVis.getList(), containsInAnyOrder(file2.getAbsolutePath(),
                 file3.getAbsolutePath())
-        ));
+        );
     }
 
     @Test
