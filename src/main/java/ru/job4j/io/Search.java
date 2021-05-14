@@ -9,9 +9,12 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        Path path = Paths.get("./src/main/resources/");
+        if (args.length != 2) {
+            throw new IllegalArgumentException("Enter root folder and file type");
+        }
+        Path path = Paths.get(args[0]);
         search(path, x -> x.toFile().getName()
-                .endsWith("csv")).forEach(System.out::println);
+                .endsWith(args[1])).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
