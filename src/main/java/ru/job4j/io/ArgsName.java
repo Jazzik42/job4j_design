@@ -2,6 +2,8 @@ package ru.job4j.io;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ArgsName {
     private final Map<String, String> values = new HashMap<>();
@@ -15,7 +17,9 @@ public class ArgsName {
             throw new IllegalArgumentException();
         }
         for (String arg : args) {
-            if (!arg.matches("-\\w+=.+")) {
+            Pattern pt = Pattern.compile("-\\w+=.+");
+            Matcher mt = pt.matcher(arg);
+            if (!mt.matches()) {
                 throw new IllegalArgumentException();
             }
             String[] buff = arg.split("[-=]");
