@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class ConsoleChat {
     private final String path;
@@ -19,12 +20,13 @@ public class ConsoleChat {
     }
 
     public void run() {
-        try (BufferedReader bfReader = new BufferedReader(new InputStreamReader(System.in));
-             BufferedWriter bfWriter = new BufferedWriter(new FileWriter(path))) {
-            String userAnswer = bfReader.readLine();
+        try (BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in))) {
+            String userAnswer = userInput.readLine();
             String botAnswer;
+            List<String> chatLog = new ArrayList<>();
             boolean stopProgram = false;
             while (!userAnswer.equals(OUT)) {
+                chatLog.add(userAnswer);
                 if (userAnswer.equals(STOP)) {
                     stopProgram = true;
                 }
@@ -34,11 +36,21 @@ public class ConsoleChat {
                 if (!stopProgram) {
                     botAnswer = getBotAnswers(botAnswers);
                     System.out.println(botAnswer);
-                    bfWriter.write(userAnswer + System.lineSeparator() + botAnswer + System.lineSeparator());
-                } else {
-                    bfWriter.write(userAnswer + System.lineSeparator());
+                    chatLog.add(botAnswer);
                 }
-                userAnswer = bfReader.readLine();
+                userAnswer = userInput.readLine();
+            }
+            writeLog(chatLog);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeLog(List<String> chatLog) {
+        try (BufferedWriter chatLogWriter = new BufferedWriter(new FileWriter(path))) {
+            for (String chatLine : chatLog) {
+                chatLogWriter.write(chatLine);
+                chatLogWriter.newLine();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,11 +60,7 @@ public class ConsoleChat {
     private String getBotAnswers(String botAnswers) {
         List<String> list = new ArrayList<>();
         try (BufferedReader buffRead = new BufferedReader(new FileReader(botAnswers, StandardCharsets.UTF_8))) {
-            String line = buffRead.readLine();
-            while (line != null) {
-                list.add(line);
-                line = buffRead.readLine();
-            }
+            list = buffRead.lines().collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
         }
