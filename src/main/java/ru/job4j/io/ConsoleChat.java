@@ -35,7 +35,7 @@ public class ConsoleChat {
                     botAnswer = getBotAnswers(botAnswers);
                     System.out.println(botAnswer);
                     bfWriter.write(userAnswer + System.lineSeparator() + botAnswer + System.lineSeparator());
-                } else if (stopProgram) {
+                } else {
                     bfWriter.write(userAnswer + System.lineSeparator());
                 }
                 userAnswer = bfReader.readLine();
