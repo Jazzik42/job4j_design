@@ -13,6 +13,7 @@ public class ConsoleChat {
     private static final String OUT = "закончить";
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
+    private List<String> answersList = null;
 
     public ConsoleChat(String path, String botAnswers) {
         this.path = path;
@@ -58,14 +59,15 @@ public class ConsoleChat {
     }
 
     private String getBotAnswers(String botAnswers) {
-        List<String> list = new ArrayList<>();
-        try (BufferedReader buffRead = new BufferedReader(new FileReader(botAnswers, StandardCharsets.UTF_8))) {
-            list = buffRead.lines().collect(Collectors.toList());
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (answersList == null) {
+            try (BufferedReader buffRead = new BufferedReader(new FileReader(botAnswers, StandardCharsets.UTF_8))) {
+                answersList = buffRead.lines().collect(Collectors.toList());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         Random random = new Random();
-        return list.get(random.nextInt(25));
+        return answersList.get(random.nextInt(25));
     }
 
     public static void main(String[] args) {
