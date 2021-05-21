@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class ArgsName {
     private final Map<String, String> values = new HashMap<>();
-
+    private static final Pattern PATTERN = Pattern.compile("-\\w+=.+");
     public String get(String key) {
         return values.get(key);
     }
@@ -17,8 +17,7 @@ public class ArgsName {
             throw new IllegalArgumentException();
         }
         for (String arg : args) {
-            Pattern pt = Pattern.compile("-\\w+=.+");
-            Matcher mt = pt.matcher(arg);
+            Matcher mt = PATTERN.matcher(arg);
             if (!mt.matches()) {
                 throw new IllegalArgumentException();
             }
