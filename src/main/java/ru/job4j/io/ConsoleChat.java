@@ -67,7 +67,7 @@ public class ConsoleChat {
             }
         }
         Random random = new Random();
-        return answersList.get(random.nextInt(25));
+        return answersList.get(random.nextInt(answersList.size()));
     }
 
     public static void main(String[] args) {
