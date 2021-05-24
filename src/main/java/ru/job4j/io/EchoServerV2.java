@@ -13,24 +13,25 @@ public class EchoServerV2 {
             while (!server.isClosed()) {
                 Socket socket = server.accept();
                 try (OutputStream outServer = socket.getOutputStream();
-                BufferedReader inServer = new BufferedReader(new InputStreamReader(
-                        socket.getInputStream()))) {
+                     BufferedReader inServer = new BufferedReader(new InputStreamReader(
+                             socket.getInputStream()))) {
                     String str = inServer.readLine();
                     outServer.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                    while (!(str.isEmpty())) {
-                        System.out.println(str);
-                        if (str.contains("Hello")) {
-                            outServer.write("Hello, dear friend\r\n".getBytes());
-                        } else if (str.contains("Exit")) {
-                            server.close();
-                        } else if (str.contains("What")) {
-                            outServer.write("What\r\n".getBytes());
-                        } else {
-                            outServer.write((str + System.lineSeparator()).getBytes());
+                    if (str != null) {
+                        while (!(str.isEmpty())) {
+                            System.out.println(str);
+                            if (str.contains("Hello")) {
+                                outServer.write("Hello, dear friend\r\n".getBytes());
+                            } else if (str.contains("Exit")) {
+                                server.close();
+                            } else if (str.contains("What")) {
+                                outServer.write("What\r\n".getBytes());
+                            } else {
+                                outServer.write((str + System.lineSeparator()).getBytes());
+                            }
+                            str = inServer.readLine();
                         }
-                        str = inServer.readLine();
                     }
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -38,3 +39,4 @@ public class EchoServerV2 {
         }
     }
 }
+
