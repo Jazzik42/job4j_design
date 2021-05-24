@@ -21,7 +21,7 @@ public class EchoServerV2 {
                         while (!(str.isEmpty())) {
                             System.out.println(str);
                             if (str.contains("Hello")) {
-                                outServer.write("Hello, dear friend\r\n".getBytes());
+                                outServer.write("Hello, dear friend.\r\n".getBytes());
                             } else if (str.contains("Exit")) {
                                 server.close();
                             } else if (str.contains("What")) {
