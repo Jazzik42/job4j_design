@@ -28,7 +28,7 @@ public class EchoServerV2 {
                             if (str.contains("Hello")) {
                                 outServer.write("Hello, dear friend.\r\n".getBytes());
                             } else if (str.contains("Exit")) {
-                                outServer.write("Exit".getBytes());
+                                outServer.write("Exit\r\n".getBytes());
                                 server.close();
                             } else if (!str.contains("Hello") && !str.contains("Exit")) {
                                 outServer.write("What\r\n".getBytes());
