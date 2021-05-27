@@ -30,11 +30,12 @@ public class EchoServerV2 {
                             } else if (str.contains("Exit")) {
                                 outServer.write("Exit\r\n".getBytes());
                                 server.close();
-                            } else if (!str.contains("Hello") && !str.contains("Exit")) {
+                            } else if (str.contains("GET") && !str.contains("Hello")) {
                                 outServer.write("What\r\n".getBytes());
                             }
                             str = inServer.readLine();
                         }
+
                     }
                 }
             }
