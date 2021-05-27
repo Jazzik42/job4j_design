@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<user name="Alewa" age="32">
+    <contact phone="11-111"/>
+    <accounts>
+        <account>1</account>
+        <account>2</account>
+        <account>3</account>
+    </accounts>
+    <user married="true"/>
+</user>
