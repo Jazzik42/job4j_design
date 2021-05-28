@@ -6,5 +6,5 @@
         <account>2</account>
         <account>3</account>
     </accounts>
-    <user married="true"/>
+    <married>true</married>
 </user>
