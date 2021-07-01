@@ -1,0 +1,12 @@
+create table cars(
+id serial primary key,
+name varchar(255),
+ACPP bool,
+length int
+);
+insert into cars(name, ACPP, length) values('camaro', true, 3);
+select * from cars;
+update cars set name = 'chevrolet camaro', ACPP = false;
+select * from cars;
+delete from cars;
+select * from cars;
