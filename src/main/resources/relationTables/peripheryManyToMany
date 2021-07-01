@@ -1,0 +1,21 @@
+create table headphones(
+id serial primary key,
+	name varchar(255),
+	price int
+);
+create table mouses(
+id serial primary key,
+	name varchar(255),
+	price int
+);
+create table periphery(
+id serial primary key,
+	headphone_name varchar(255) references headphones(name),
+	mouse_name varchar(255) references mouses(name)
+);
+insert into headphones(name, price) values('sony', 2500);
+insert into headphones(name, price) values('panasonic', 3500);
+insert into mouses(name, price) values('razer', 5500);
+insert into mouses(name, price) values('a4tech', 3500);
+insert into periphery(headphone_name, mouse_name) values('sony', 'razer');
+select * from periphery;

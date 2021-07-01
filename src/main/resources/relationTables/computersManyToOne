@@ -1,0 +1,15 @@
+create table processor(
+id serial primary key,
+	name varchar(255),
+	frequency varchar(255)
+);
+create table computer(
+ id serial primary key,
+	processor int references processor(id),
+	name varchar(255)
+);
+insert into processor(name, frequency) values ('intel', 2500);
+insert into processor(name, frequency) values ('amd', 3500);
+insert into computer(processor, name) values (1, 'hp');
+insert into computer(processor, name) values (2, 'acer');
+select * from computer;
