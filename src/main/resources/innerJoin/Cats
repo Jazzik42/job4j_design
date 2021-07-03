@@ -1,0 +1,22 @@
+create table cats(
+id serial primary key,
+name varchar(255),
+weight int,
+owner_id int references owner(id)
+)
+create table owner(
+id serial primary key,
+name varchar(255),
+surname varchar(255),
+)
+insert into cats(name, weight, owner_id) values ('murka', 2, 1);
+insert into cats(name, weight, owner_id) values ('barsik', 3, 2);
+insert into cats(name, weight, owner_id) values ('kitty', 2, 4);
+insert into cats(name, weight) values ('rbIwik', 4);
+insert into owner(name, surname) values ('Ivan', 'Ivanov');
+insert into owner(name, surname) values ('Mawa', 'Elevena');
+insert into owner(name, surname) values ('Petr', 'Arsentev');
+insert into owner(name, surname) values ('Ramil', 'Muzipov');
+select o.name, c.name from owner o join cats c on o.id = c.id;
+select * from owner o join cats c on o.id = c.id;
+select o.name Имя, o.surname Фамилия, c.name Кличка, c.weight Вес from owner o join cats c on o.id = c.owner_id;
