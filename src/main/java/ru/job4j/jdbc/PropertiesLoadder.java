@@ -17,4 +17,7 @@ public class PropertiesLoadder {
     public String getValues(String key) {
         return properties.getProperty(key);
     }
+    public Properties getProperties() {
+        return properties;
+    }
 }
