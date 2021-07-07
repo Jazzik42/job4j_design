@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
+import java.util.StringJoiner;
 
 public class TableEditor implements AutoCloseable {
     private Connection connection;
@@ -63,18 +64,19 @@ public class TableEditor implements AutoCloseable {
         st.execute(sql);
     }
 
-    public String getScheme(Connection connect, String tableName) throws SQLException {
-        DatabaseMetaData metaData = connect.getMetaData();
-        StringBuilder scheme = new StringBuilder();
-        try (ResultSet columns = metaData.getColumns(null, null, tableName, null)) {
-            scheme.append(String.format("%-15s %-15s%n", "column", "type"));
-            while (columns.next()) {
-                scheme.append(String.format("%-15s %-15s%n",
-                        columns.getString(""),
-                        columns.getString("")));
-            }
+    public String getTableScheme(Connection connect, String tableName) throws SQLException {
+        String rowSeparator = "-".repeat(30).concat(System.lineSeparator());
+        String header = String.format("%-15s|%-15s%n", "NAME", "TYPE");
+        StringJoiner buffer = new StringJoiner(rowSeparator, rowSeparator, rowSeparator);
+        buffer.add(header);
+        ResultSet selection = st.executeQuery(String.format("select * from %s limit 1",
+                tableName));
+        ResultSetMetaData metaData = selection.getMetaData();
+        for (int i = 1; i <= metaData.getColumnCount(); i++) {
+            buffer.add(String.format("%-15s|%-15s%n",
+                    metaData.getColumnName(i), metaData.getColumnTypeName(i)));
         }
-        return scheme.toString();
+        return buffer.toString();
     }
 
     @Override
@@ -109,11 +111,11 @@ public class TableEditor implements AutoCloseable {
             tableEditor.initStatement();
             tableEditor.dropTable("Cars");
             tableEditor.createTable("Cars");
-            tableEditor.addColumn("Cars", "Name", "varchar(255)");
-            tableEditor.addColumn("Cars", "Engine", "varchar(255)");
+            tableEditor.addColumn("Cars", "Name", "text");
+            tableEditor.addColumn("Cars", "Engine", "text");
             tableEditor.dropColumn("Cars", "Engine");
             tableEditor.renameColumn("Cars", "Name", "mame");
-            System.out.println(tableEditor.getScheme(tableEditor.connection, "Cars"));
+            System.out.println(tableEditor.getTableScheme(tableEditor.connection, "Cars"));
         } catch (Exception e) {
             e.printStackTrace();
         }
